@@ -1,17 +1,17 @@
 export default {
-  logo: <strong>Nextra Demo</strong>,
+  logo: <strong>My Doc</strong>,
   project: {
-    link: "https://github.com/sankthomas/nextra-yt-demo",
+    link: 'https://github.com/sankthomas/nextra-yt-demo',
   },
   useNextSeoProps() {
     return {
-      titleTemplate: "Nextra Demo - %s",
+      titleTemplate: '%s',
     };
   },
   footer: {
-    text: "Copyright Thomas Sankara 2024",
+    text: 'Copyright Ta.Durgga Prassat 2024',
   },
   chat: {
-    link: "https://discord.com",
+    link: 'https://discord.com',
   },
 };

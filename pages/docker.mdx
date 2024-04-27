@@ -1,0 +1,370 @@
+## Quick Start
+
+#### Summary
+
+- Docker provides the ability to package and run an application in a loosely isolated environment called a container. The isolation and security allows you to run many containers simultaneously on a given host. Containers are lightweight and contain everything needed to run the application, so you do not need to rely on what is currently installed on the host. You can easily share containers while you work, and be sure that everyone you share with gets the same container that works in the same way.
+
+- Docker is a platform for consistently building, running, and shipping applications.
+- A virtual machine is an abstraction of hardware resources. Using hypervisors we can create and manage virtual machines. The most popular hypervisors are VirtualBox, VMware and Hyper-v (Windows-only).
+- A container is an isolated environment for running an application. It’s essentially an operating-system process with its own file system.
+- Virtual machines are very resource intensive and slow to start. Containers are very lightweight and start quickly because they share the kernel of the host (which is already started).
+- A kernel is the core of an operating system. It’s the part that manages applications and hardware resources. Different operating system kernels have different APIs. That’s why we cannot run a Windows application on Linux because under the hood, that application needs to talk to a Windows kernel.
+- Windows 10 now includes a Linux kernel in addition to the Windows kernel. So we can run Linux applications natively on Windows.
+- Docker uses client/server architecture. It has a client component that talks to the server using a RESTful API. The server is also called the Docker engine (or daemon) runs in the background and is responsible for doing the actual work.
+- Using Docker, we can bundle an application into an image. Once we have an image, we can run it on any machine that runs Docker.
+- An image is a bundle of everything needed to run an application. That includes a cutdown OS, a runtime environment (eg Node, Python, etc), application files, third-party libraries, environment variables, etc.
+- To bundle an application into an image, we need to create a Dockerfile. A Dockerfile contains all the instructions needed to package up an application into an image.
+- We can share our images by publishing them on Docker registries. The most popular Docker registry is Docker Hub.
+
+### Commands
+
+#### Images
+
+- Docker images are a lightweight, standalone, executable package
+  of software that includes everything needed to run an application:
+  code, runtime, system tools, system libraries and settings.
+
+```bash
+# Create an image from a Dockerfile:
+docker build [dockerfile-path]
+
+# Build an image using the files from the current path:
+docker build .
+
+# Create an image from a Dockerfile and tag it:
+docker build -t [name]:[tag] [location]
+
+# Specify a file to build from:
+docker build -f [file]
+
+# Pull an image from a registry:
+docker pull [image]
+
+# Push an image to a registry:
+docker push [image]
+
+# Create an image from a tarball:
+docker import [url/file]
+
+# Create an image from a container:
+docker commit [container] [new-image]
+
+# Tag an image:
+docker tag [image] [image]:[tag]
+
+# Show all locally stored top level images:
+docker images
+
+# Show history for an image:
+docker history [image]
+
+# Remove an image:
+docker rmi [image]
+
+# Load an image from a tar archive file:
+docker load --input [tar-file]
+
+# Save an image to a tar archive file:
+docker save [image] > [tar-file]
+
+# Search Docker Hub for images:
+docker search [query]
+
+# Remove unused images:
+docker image prune
+```
+
+#### Containers
+
+- A container is a runtime instance of a docker image. A container
+  will always run the same, regardless of the infrastructure.
+  Containers isolate software from its environment and ensure
+  that it works uniformly despite differences for instance between
+  development and staging.
+
+##### Container Management
+
+```bash
+# List the running containers:
+docker ps
+
+# List all the containers, both running and stopped:
+docker ps -a
+
+# Create a container without starting it:
+docker create [image]
+
+# Create an interactive container with pseudo-TTY:
+docker create -it [image]
+
+# Rename a container:
+docker rename [container] [new-name]
+
+# Remove a stopped container:
+docker rm [container]
+
+# Force remove a container, even if it is running:
+docker rm -f [container]
+
+# View logs for a running container:
+docker logs [container]
+
+# Retrieve logs before a specific point in time:
+docker logs -f --until=[interval] [container]
+
+# View real time events for a container:
+docker events [container]
+
+# Update the configuration of a container:
+docker update [container]
+
+# Show port mapping for a container:
+docker port [container]
+
+# Show running processes in a container:
+docker top [container]
+
+# Show live resource usage statistics for a container:
+docker stats [container]
+
+# Show changes to files or directories on the filesystem:
+docker diff [container]
+
+# Copy a local file to a directory in a container:
+docker cp [file-path] CONTAINER:[path]
+```
+
+##### Running a Container
+
+```bash
+# Run a command in a container based on an image:
+docker run [image] [command]
+
+# Create, start, and name a container:
+docker run --name [container-name] [image]
+
+# Map a host port to a container port:
+docker run -p [host-port]:[container-port] [image]
+
+# Run a container and remove it after it stops:
+docker run --rm [image]
+
+# Run a detached (background) container:
+docker run -d [image]
+
+# Run an interactive process, e.g., a shell, in a container:
+docker run -it [image]
+
+# Start a container:
+docker start [container]
+
+# Stop a container:
+docker stop [container]
+
+# Stop a container and start it again:
+docker restart [container]
+
+# Pause processes in a running container:
+docker pause [container]
+
+# Unpause processes in a running container:
+docker unpause [container]
+
+# Block input until the container stops:
+docker wait [container]
+
+# Send a SIGKILL signal to stop a container:
+docker kill [container]
+
+# Attach local standard input, output and error:
+docker attach [container]
+
+# Run a shell inside a running container:
+docker exec -it [container] [shell]
+```
+
+#### Volumes
+
+```bash
+# List Docker volumes:
+docker volume ls
+
+# Create a Docker volume:
+docker volume create app-data
+
+# Inspect a Docker volume:
+docker volume inspect app-data
+
+# Run a Docker container with a volume:
+docker run -v app-data:/app/data <image>
+
+# Copy a file from a Docker container to the host:
+docker cp <containerID>:/app/log.txt .
+
+# Copy a file from the host to a Docker container:
+docker cp secret.txt <containerID>:/app
+
+# Sharing source code with containers
+docker run -v $(pwd):/app <image>
+```
+
+#### Docker Compose
+
+```bash
+# Build services defined in a Docker Compose file:
+docker-compose build
+
+# Build services without using any cached layers:
+docker-compose build --no-cache
+
+# Create and start containers:
+docker-compose up
+
+# Create and start containers in detached mode:
+docker-compose up -d
+
+# Build, (re)create, start, and attach to containers for a service:
+docker-compose up --build
+
+# Stop and remove containers, networks, images, and volumes:
+docker-compose down
+
+# List containers:
+docker-compose ps
+
+# View output from containers:
+docker-compose logs
+```
+
+#### General
+
+```bash
+# Log in to a Docker registry:
+docker login
+
+# Log out of a Docker registry:
+docker logout
+
+# Show low-level information about an object:
+docker inspect [object]
+
+# Show the version of the local Docker installation:
+docker version
+
+# Display information about the system:
+docker info
+
+# Remove unused images, containers, and networks:
+docker system prune
+```
+
+#### Networking
+
+```bash
+# View available networks:
+docker network ls
+
+# Remove a network:
+docker network rm [network]
+
+# Show information about a network:
+docker network inspect [network]
+
+# Connect a container to a network:
+docker network connect [network] [container]
+
+# Disconnect a container from a network:
+docker network disconnect [network] [container]
+```
+
+#### Plugin Management
+
+```bash
+# Enable a Docker plugin:
+docker plugin enable [plugin]
+
+# Disable a Docker plugin:
+docker plugin disable [plugin]
+
+# Create a plugin from config.json and rootfs:
+docker plugin create [plugin] [path-to-data]
+
+# View details about a plugin:
+docker plugin inspect [plugin]
+
+# Remove a plugin:
+docker plugin rm [plugin]
+```
+
+#### Dockerfile
+
+```bash
+# To specify the base image:
+FROM [base_image]
+
+# To set the working directory:
+WORKDIR [directory]
+
+# To copy files/directories:
+COPY [source] [destination]
+
+# To copy files/directories:
+ADD [source] [destination]
+
+# To run commands:
+RUN [command]
+
+# To set environment variables:
+ENV [variable_name]=[value]
+
+# To document the port the container is listening on:
+EXPOSE [port]
+
+# To set the user running the app:
+USER [username]
+
+# To set the default command/program:
+CMD [command]
+
+# To set the default command/program:
+ENTRYPOINT [command]
+
+# To add metadata to an image:
+LABEL [key]=[value]
+
+# To create a mount point with the specified name:
+VOLUME ["/path/to/directory"]
+
+# To execute any commands in a new layer on top of the current image and commit the results:
+RUN [command]
+
+# To define an environment variable:
+ENV [key]=[value]
+
+# To provide defaults for an executing container:
+CMD ["executable", "param1", "param2"]
+
+# To allow the container to be run as an executable:
+ENTRYPOINT ["executable", "param1", "param2"]
+
+# To copy new files, directories or remote file URLs from <src> and add them to the filesystem of the image at the path <dest>:
+ADD <src> <dest>
+
+# To copy new files or directories from <src> and add them to the filesystem of the container at the path <dest>:
+COPY <src> <dest>
+
+# To set the user name or UID to use when running the image and for any RUN, CMD and ENTRYPOINT instructions that follow it in the Dockerfile:
+USER [username]
+
+# To set the working directory for any RUN, CMD, ENTRYPOINT, COPY and ADD instructions that follow it in the Dockerfile:
+WORKDIR /path/to/workdir
+
+# To inform Docker that the container listens on the specified network ports at runtime:
+EXPOSE [port]
+
+# To define a healthcheck command:
+HEALTHCHECK CMD command (such as: HEALTHCHECK CMD curl --fail http://localhost:8080/ || exit 1)
+
+# To use a Dockerfile from another image:
+ONBUILD [INSTRUCTION]
+```

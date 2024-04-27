@@ -1,0 +1,241 @@
+#### Bash Commands
+
+```bash
+uname -a            # Show system and kernel
+head -n1 /etc/issue # Show distribution
+mount               # Show mounted filesystems
+date                # Show system date
+uptime              # Show uptime
+whoami              # Show your username
+man command         # Show manual for command
+```
+
+#### Bash Shortcuts
+
+```bash
+CTRL-c              # Stop current command
+CTRL-z              # Sleep program
+CTRL-a              # Go to start of line
+CTRL-e              # Go to end of line
+CTRL-u              # Cut from start of line
+CTRL-k              # Cut to end of line
+CTRL-r              # Search history
+!!                  # Repeat last command
+!abc                # Run last command starting with abc
+!abc:p              # Print last command starting with abc
+!$                  # Last argument of previous command
+ALT-.               # Last argument of previous command
+!*                  # All arguments of previous command
+^abc^123            # Run previous command, replacing abc with 123
+```
+
+#### Bash Variables
+
+```bash
+env                 # Show environment variables
+echo $NAME          # Output value of $NAME variable
+export NAME=value   # Set $NAME to value
+$PATH               # Executable search path
+$HOME               # Home directory
+$SHELL              # Current shell
+```
+
+#### IO Redirection
+
+```bash
+cmd < file          # Input of cmd from file
+cmd1 <(cmd2)        # Output of cmd2 as file input to cmd1
+cmd > file          # Standard output (stdout) of cmd to file
+cmd > /dev/null     # Discard stdout of cmd
+cmd >> file         # Append stdout to file
+cmd 2> file         # Error output (stderr) of cmd to file
+cmd 1>&2            # stdout to same place as stderr
+cmd 2>&1            # stderr to same place as stdout
+cmd &> file         # Every output of cmd to file
+
+```
+
+Note: `cmd` refers to command
+
+#### Pipes
+
+```bash
+cmd1 | cmd2         # stdout of cmd1 to cmd2
+cmd1 |& cmd2        # stderr of cmd1 to cmd2
+
+```
+
+#### Command Lists
+
+```bash
+cmd1 ; cmd2         # Run cmd1 then cmd2
+cmd1 && cmd2        # Run cmd2 if cmd1 is successful
+cmd1 || cmd2        # Run cmd2 if cmd1 is not successful
+cmd &               # Run cmd in a subshell
+```
+
+#### Directory Operations
+
+```bash
+pwd                 # Show current directory
+mkdir dir           # Make directory dir
+cd dir              # Change directory to dir
+cd ..               # Go up a directory
+ls                  # List files
+```
+
+#### Is Options
+
+```bash
+-a                  # Show all (including hidden)
+-R                  # Recursive list
+-r                  # Reverse order
+-t                  # Sort by last modified
+-S                  # Sort by file size
+-l                  # Long listing format
+-1                  # One file per line
+-m                  # Comma-separated output
+-Q                  # Quoted output
+```
+
+#### Search Files
+
+```bash
+grep pattern files  # Search for pattern in files
+grep -i             # Case insensitive search
+grep -r             # Recursive search
+grep -v             # Inverted search
+grep -o             # Show matched part of file only
+find /dir/ -name name* # Find files starting with name in dir
+find /dir/ -user name  # Find files owned by name in dir
+find /dir/ -mmin num   # Find files modified less than num minutes ago in dir
+whereis command     # Find binary / source / manual for command
+locate file         # Find file (quick search of system index)
+```
+
+#### File Operations
+
+```bash
+touch file1         # Create file1
+cat file1 file2     # Concatenate files and output
+less file1          # View and paginate file1
+file file1          # Get type of file1
+cp file1 file2      # Copy file1 to file2
+mv file1 file2      # Move file1 to file2
+rm file1            # Delete file1
+head file1          # Show first 10 lines of file1
+tail file1          # Show last 10 lines of file1
+tail -F file1       # Output last lines of file1 as it changes
+```
+
+#### Process Management
+
+```bash
+ps                  # Show snapshot of processes
+top                 # Show real time processes
+kill pid            # Kill process with id pid
+pkill name          # Kill process with name name
+killall name        # Kill all processes with names beginning name
+```
+
+#### File Permissions
+
+```bash
+chmod 775 file        # Change mode of file to 775
+chmod -R 600 folder   # Recursively chmod folder to 600
+chown user:group file # Change file owner to user and group to group
+```
+
+#### Managing Packages
+
+```bash
+apt update
+apt list
+apt install nano
+apt remove nano
+```
+
+#### Navigating the File System
+
+```bash
+pwd # to print the working directory
+ls # to list the files and directories
+ls -l # to print a long list
+cd / # to go to the root directory
+cd bin # to go to the bin directory
+cd .. # to go one level up
+cd ~ # to go to the home directory
+```
+
+#### Manipulating Files and Directories
+
+```bash
+mkdir test # to create the test directory
+mv test docker # to rename a directory
+touch file.txt # to create file.txt
+mv file.txt hello.txt # to rename a file
+rm hello.txt # to remove a file
+rm -r docker # to recursively remove a directory
+```
+
+#### Editing and Viewing Files
+
+```bash
+nano file.txt # to edit file.txt
+cat file.txt # to view file.txt
+less file.txt # to view with scrolling capabilities
+head file.txt # to view the first 10 lines
+head -n 5 file.txt # to view the first 5 lines
+tail file.txt # to view the last 10 lines
+tail -n 5 file.txt # to view the last 5 lines
+```
+
+#### Searching for Text
+
+```bash
+grep hello file.txt # to search for hello in file.txt
+grep -i hello file.txt # case-insensitive search
+grep -i hello file*.txt # to search in files with a pattern
+grep -i -r hello . # to search in the current directory
+```
+
+#### Finding Files and Directories
+
+```bash
+find # to list all files and directories
+find -type d # to list directories only
+find -type f # to list files only
+find -name “f*” # to filter by name using a pattern
+```
+
+#### Managing Environment Variables
+
+```bash
+printenv # to list all variables and their value
+printenv PATH # to view the value of PATH
+echo $PATH # to view the value of PATH
+export name=bob # to set a variable in the current session
+```
+
+#### Managing Users and Groups
+
+```bash
+useradd -m john # to create a user with a home directory
+adduser john # to add a user interactively
+usermod # to modify a user
+userdel # to delete a user
+groupadd devs # to create a group
+groups john # to view the groups for john
+groupmod # to modify a group
+groupdel # to delete a group
+```
+
+#### File Permissions
+
+```bash
+chmod u+x deploy.sh # give the owning user execute permission
+chmod g+x deploy.sh # give the owning group execute permission
+chmod o+x deploy.sh # give everyone else execute permission
+chmod ug+x deploy.sh # to give the owning user and group execute permission
+chmod ug-x deploy.sh # to remove the execute permission from the owning user and group
+```
